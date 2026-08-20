@@ -1,0 +1,17 @@
+{
+  "name": "Azbuka Trainer",
+  "short_name": "Azbuka",
+  "description": "Learn to read Serbian Cyrillic: all thirty letters, adaptive drills, real-word reading and a timed fluency sprint.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#E4E8E8",
+  "theme_color": "#0E6B6B",
+  "lang": "en",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
