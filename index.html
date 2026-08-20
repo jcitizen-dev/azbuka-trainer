@@ -12,196 +12,29 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" href="icon-192.png" type="image/png">
-<title>Azbuka Trainer</title>
+<title>Azbuka &amp; Padeži</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=PT+Serif:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
-<style>
-:root{
-  --bg:#E4E8E8; --surface:#FAFBFB; --surface-2:#EFF3F2; --line:#CBD4D3;
-  --ink:#13191B; --ink-2:#3C4A4C; --muted:#69787A;
-  --brand:#0E6B6B; --brand-soft:#D6E8E6; --brand-ink:#08494A; --on-brand:#FFFFFF;
-  --good:#2E7D5B; --good-soft:#D8EBE1;
-  --bad:#B93A2E; --bad-soft:#F5DDD9;
-  --amber:#B5761A; --amber-soft:#F6E7CE;
-  --shadow:0 1px 2px rgba(16,32,32,.06),0 6px 18px rgba(16,32,32,.07);
-}
-@media (prefers-color-scheme:dark){
-  :root:not([data-theme="light"]){
-    --bg:#0C1214; --surface:#151E20; --surface-2:#1D282A; --line:#2C3A3C;
-    --ink:#E8EEED; --ink-2:#BCC9C8; --muted:#87979A;
-    --brand:#41B3A5; --brand-soft:#123231; --brand-ink:#8CD9CE; --on-brand:#06201F;
-    --good:#4FB483; --good-soft:#122E22;
-    --bad:#E0705F; --bad-soft:#331A16;
-    --amber:#D9A044; --amber-soft:#2E2214;
-    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 22px rgba(0,0,0,.35);
-  }
-}
-:root[data-theme="dark"]{
-  --bg:#0C1214; --surface:#151E20; --surface-2:#1D282A; --line:#2C3A3C;
-  --ink:#E8EEED; --ink-2:#BCC9C8; --muted:#87979A;
-  --brand:#41B3A5; --brand-soft:#123231; --brand-ink:#8CD9CE; --on-brand:#06201F;
-  --good:#4FB483; --good-soft:#122E22;
-  --bad:#E0705F; --bad-soft:#331A16;
-  --amber:#D9A044; --amber-soft:#2E2214;
-  --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 22px rgba(0,0,0,.35);
-}
-*{box-sizing:border-box}
-body{
-  margin:0;background:var(--bg);color:var(--ink);
-  font-family:"Golos Text",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  -webkit-font-smoothing:antialiased;-webkit-text-size-adjust:100%;
-  overscroll-behavior-y:none;
-}
-button,input{font:inherit;color:inherit}
-button{cursor:pointer;border:0;background:none}
-.app{max-width:520px;margin:0 auto;min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;background:var(--bg)}
-
-/* ---- header ---- */
-header{
-  position:sticky;top:0;z-index:20;background:var(--bg);
-  padding:calc(env(safe-area-inset-top) + 14px) 18px 10px;
-  display:flex;align-items:baseline;gap:10px;border-bottom:1px solid var(--line);
-}
-.brandmark{font-family:"PT Serif",Georgia,serif;font-size:20px;letter-spacing:.01em}
-.brandmark b{color:var(--brand)}
-.sub{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
-.streak{margin-left:auto;font-size:12px;font-weight:600;color:var(--amber);
-  background:var(--amber-soft);padding:4px 9px;border-radius:999px;white-space:nowrap}
-
-main{flex:1;padding:18px 18px 108px;display:none}
-main.on{display:block}
-
-/* ---- shared ---- */
-h2{font-family:"PT Serif",Georgia,serif;font-size:22px;margin:0 0 4px;text-wrap:balance;font-weight:700}
-.lede{color:var(--muted);font-size:13.5px;line-height:1.55;margin:0 0 18px;max-width:62ch}
-.eyebrow{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:600;margin:22px 0 9px;display:flex;align-items:center;gap:8px}
-.eyebrow::after{content:"";flex:1;height:1px;background:var(--line)}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow)}
-.btn{background:var(--brand);color:var(--on-brand);border-radius:11px;padding:13px 18px;font-weight:600;font-size:15px;width:100%;transition:transform .12s ease,filter .12s ease}
-.btn:active{transform:scale(.98)}
-.btn.ghost{background:var(--surface);color:var(--ink);border:1px solid var(--line)}
-:focus-visible{outline:2.5px solid var(--brand);outline-offset:2px;border-radius:6px}
-
-/* ---- alphabet grid ---- */
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(70px,1fr));gap:8px}
-.cell{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:9px 4px 8px;
-  display:flex;flex-direction:column;align-items:center;gap:2px;position:relative;overflow:hidden}
-.cell .gl{font-family:"PT Serif",Georgia,serif;font-size:25px;line-height:1.05}
-.cell .tr{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;color:var(--muted)}
-.cell .bar{position:absolute;left:0;bottom:0;height:3px;background:var(--brand);opacity:.85;width:0}
-.cell.trap .gl{color:var(--bad)}
-.cell.free .gl{color:var(--good)}
-
-/* ---- letter detail sheet ---- */
-.sheet{position:fixed;inset:0;z-index:60;display:none;align-items:flex-end;justify-content:center;
-  background:rgba(8,16,17,.5);backdrop-filter:blur(3px);padding:0}
-.sheet.on{display:flex}
-.sheet-inner{background:var(--surface);width:100%;max-width:520px;border-radius:20px 20px 0 0;
-  padding:20px 20px calc(env(safe-area-inset-bottom) + 22px);border-top:1px solid var(--line);
-  max-height:88vh;overflow-y:auto;animation:rise .26s cubic-bezier(.2,.8,.3,1)}
-@keyframes rise{from{transform:translateY(26px);opacity:.4}to{transform:none;opacity:1}}
-@media (prefers-reduced-motion:reduce){.sheet-inner{animation:none}.btn{transition:none}}
-.grip{width:38px;height:4px;border-radius:2px;background:var(--line);margin:0 auto 16px}
-.bigrow{display:flex;align-items:baseline;gap:14px;margin-bottom:6px}
-.bigrow .caps{font-family:"PT Serif",Georgia,serif;font-size:62px;line-height:.95}
-.bigrow .lc{font-family:"PT Serif",Georgia,serif;font-size:38px;line-height:1;color:var(--ink-2)}
-.bigrow .ital{font-family:"PT Serif",Georgia,serif;font-style:italic;font-size:32px;color:var(--muted)}
-.saybtn{margin-left:auto;background:var(--brand-soft);color:var(--brand-ink);border-radius:999px;
-  padding:9px 14px;font-size:13px;font-weight:600;align-self:center}
-.latinline{display:flex;align-items:baseline;gap:9px;margin-top:2px}
-.latinline span{font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);font-weight:600}
-.latinline b{font-family:"JetBrains Mono",monospace;font-size:24px;font-weight:600;color:var(--brand)}
-.deftable{display:grid;grid-template-columns:auto 1fr;gap:8px 14px;margin:16px 0;font-size:14px;line-height:1.5}
-.deftable dt{font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);font-weight:600;padding-top:3px}
-.deftable dd{margin:0}
-.hook{background:var(--amber-soft);border-radius:11px;padding:12px 14px;font-size:13.5px;line-height:1.55;color:var(--ink)}
-.hook b{color:var(--amber)}
-.exword{margin-top:14px;padding:14px;border-radius:11px;background:var(--surface-2);display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-.exword .cy{font-family:"PT Serif",Georgia,serif;font-size:24px}
-.exword .rom{font-family:"JetBrains Mono",monospace;font-size:13px;color:var(--muted)}
-.exword .en{font-size:13px;color:var(--ink-2);margin-left:auto}
-
-/* ---- quiz ---- */
-.stage{background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);
-  padding:22px 18px 18px;text-align:center;margin-bottom:14px}
-.prompt-label{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:600}
-.prompt{font-family:"PT Serif",Georgia,serif;font-size:84px;line-height:1.1;margin:6px 0 2px}
-.prompt.sm{font-size:44px;line-height:1.25;word-break:break-word}
-.prompt.mono{font-family:"JetBrains Mono",monospace;font-size:52px;font-weight:600;color:var(--brand)}
-.prompt-sub{font-size:13px;color:var(--muted);min-height:19px}
-.opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.opt{background:var(--surface);border:1px solid var(--line);border-radius:13px;padding:16px 10px;
-  font-size:19px;font-weight:600;box-shadow:var(--shadow);transition:background .15s ease,border-color .15s ease;min-height:60px}
-.opt.cy{font-family:"PT Serif",Georgia,serif;font-size:30px;font-weight:400}
-.opt.tr{font-family:"JetBrains Mono",monospace;font-size:20px}
-.opt.right{background:var(--good-soft);border-color:var(--good);color:var(--good)}
-.opt.wrong{background:var(--bad-soft);border-color:var(--bad);color:var(--bad)}
-.opt:disabled{opacity:1}
-.metabar{display:flex;gap:8px;margin-bottom:14px;font-size:12px;font-weight:600}
-.chip{background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:6px 12px;color:var(--muted);
-  font-variant-numeric:tabular-nums;display:flex;gap:6px;align-items:center}
-.chip b{color:var(--ink);font-weight:600}
-.chip.live{background:var(--brand-soft);border-color:transparent;color:var(--brand-ink)}
-.feedback{text-align:center;font-size:14px;min-height:44px;padding:10px 4px;line-height:1.5}
-.feedback .ok{color:var(--good);font-weight:600}
-.feedback .no{color:var(--bad);font-weight:600}
-
-/* ---- reading ---- */
-.readcard{padding:24px 18px;text-align:center}
-.readword{font-family:"PT Serif",Georgia,serif;font-size:46px;line-height:1.2;word-break:break-word;margin-bottom:6px}
-.readword.long{font-size:32px}
-.readmeta{font-size:12.5px;color:var(--muted)}
-.answerline{font-family:"JetBrains Mono",monospace;font-size:20px;font-weight:600;color:var(--brand);margin-top:12px;min-height:26px}
-.gloss{font-size:14px;color:var(--ink-2);margin-top:4px;min-height:20px}
-input[type=text]{width:100%;background:var(--surface-2);border:1px solid var(--line);border-radius:12px;
-  padding:14px;font-family:"JetBrains Mono",monospace;font-size:17px;text-align:center;margin:14px 0 10px}
-input[type=text]::placeholder{color:var(--muted);font-family:"Golos Text",sans-serif}
-.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.segmented{display:flex;background:var(--surface-2);border-radius:11px;padding:3px;gap:3px;margin-bottom:16px}
-.segmented button{flex:1;padding:9px 6px;border-radius:9px;font-size:12.5px;font-weight:600;color:var(--muted)}
-.segmented button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:var(--shadow)}
-.trace{display:flex;flex-wrap:wrap;gap:4px;justify-content:center;margin-top:14px}
-.trace span{font-family:"JetBrains Mono",monospace;font-size:12px;background:var(--surface-2);border-radius:6px;padding:3px 6px;color:var(--muted)}
-.trace span b{color:var(--ink);font-family:"PT Serif",serif;font-size:14px}
-
-/* ---- progress ---- */
-.dial{display:flex;align-items:center;gap:18px;padding:18px}
-.dial svg{flex:0 0 92px}
-.dial .num{font-family:"PT Serif",serif;font-size:34px;line-height:1}
-.dial .lbl{font-size:12.5px;color:var(--muted);line-height:1.5;margin-top:4px}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
-.stat{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 10px;text-align:center}
-.stat b{display:block;font-size:21px;font-variant-numeric:tabular-nums;font-family:"PT Serif",serif}
-.stat span{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
-.heat{display:grid;grid-template-columns:repeat(auto-fill,minmax(46px,1fr));gap:6px}
-.hcell{border-radius:9px;padding:8px 2px;text-align:center;font-family:"PT Serif",serif;font-size:19px;
-  border:1px solid var(--line);background:var(--surface)}
-.hcell small{display:block;font-family:"JetBrains Mono",monospace;font-size:9px;color:var(--muted);margin-top:1px}
-.note{font-size:12.5px;color:var(--muted);line-height:1.6;margin-top:14px}
-.note code{font-family:"JetBrains Mono",monospace;background:var(--surface-2);padding:1px 5px;border-radius:5px;font-size:11.5px}
-.danger{color:var(--bad);font-size:12.5px;font-weight:600;margin-top:18px;display:block;text-align:center}
-
-/* ---- nav ---- */
-nav{position:fixed;bottom:0;left:0;right:0;z-index:30;background:color-mix(in srgb,var(--surface) 92%,transparent);
-  backdrop-filter:blur(14px);border-top:1px solid var(--line);
-  padding:7px 6px calc(env(safe-area-inset-bottom) + 7px);
-  display:flex;max-width:520px;margin:0 auto}
-nav button{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:5px 2px;
-  font-size:10px;font-weight:600;letter-spacing:.03em;color:var(--muted);border-radius:10px}
-nav button .ic{font-family:"PT Serif",Georgia,serif;font-size:19px;line-height:1}
-nav button[aria-current="page"]{color:var(--brand)}
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 <div class="app">
 <header>
   <span class="brandmark"><b>Аз</b>бука</span>
-  <span class="sub">Trainer</span>
-  <span class="streak" id="streakChip">—</span>
+  <span class="sub" id="tabName">Ћирилица</span>
+  <button class="streak" id="statsBtn" aria-label="Open your progress">—</button>
 </header>
 
-<!-- ============ LEARN ============ -->
+<!-- ==================== TAB 1 · ЋИРИЛИЦА ==================== -->
+<section class="tab on" id="tab-azbuka">
+  <div class="segmented subnav" role="group" aria-label="Alphabet modes">
+    <button data-view="learn" aria-pressed="true">Letters</button>
+    <button data-view="drill" aria-pressed="false">Drill</button>
+    <button data-view="read" aria-pressed="false">Read</button>
+    <button data-view="sprint" aria-pressed="false">Sprint</button>
+    <button data-view="prog" aria-pressed="false">Stats</button>
+  </div>
 <main id="v-learn" class="on">
   <h2>The thirty letters</h2>
   <p class="lede">Serbian Cyrillic is perfectly phonetic: one letter, one sound, always. Tap any letter for its sound, a memory hook, and a real word. Green letters you already know from Latin; red ones are the traps that look familiar and aren't.</p>
@@ -215,8 +48,6 @@ nav button[aria-current="page"]{color:var(--brand)}
   <div class="grid" id="g-all"></div>
   <p class="note">The bar under each letter is your recall strength, built from drills and reading. Serbian italic and handwritten forms differ from print for <b>б г д п т</b> — the sheet for each shows the italic shape too.</p>
 </main>
-
-<!-- ============ DRILL ============ -->
 <main id="v-drill">
   <div class="segmented" role="group" aria-label="Drill direction">
     <button data-dir="c2l" aria-pressed="true">Letter first</button>
@@ -236,8 +67,6 @@ nav button[aria-current="page"]{color:var(--brand)}
   <div class="opts" id="d-opts"></div>
   <div class="feedback" id="d-feedback"></div>
 </main>
-
-<!-- ============ READ ============ -->
 <main id="v-read">
   <div class="segmented" role="group" aria-label="Reading set">
     <button data-set="signs" aria-pressed="true">Street signs</button>
@@ -258,8 +87,6 @@ nav button[aria-current="page"]{color:var(--brand)}
   </div>
   <p class="note">Type it however you can — <code>hvala</code>, <code>zena</code>, <code>djak</code> and <code>ćao</code> all pass. Accents optional. The goal is that your eye turns the shapes into sound without a pause.</p>
 </main>
-
-<!-- ============ SPRINT ============ -->
 <main id="v-sprint">
   <h2>Sixty-second sprint</h2>
   <p class="lede">Fluency is speed, not just accuracy. Tap the right sound as fast as you can for sixty seconds. Sixty letters a minute — one a second — means recognition has gone automatic, which is the whole point.</p>
@@ -276,8 +103,6 @@ nav button[aria-current="page"]{color:var(--brand)}
   <div class="opts" id="s-opts"></div>
   <button class="btn" id="s-start" style="margin-top:14px">Start sprint</button>
 </main>
-
-<!-- ============ PROGRESS ============ -->
 <main id="v-prog">
   <h2>Where you stand</h2>
   <p class="lede">Fluency blends how many letters you know cold with how fast you recognise them. It only reaches 100% when every letter is automatic at English reading speed.</p>
@@ -304,336 +129,121 @@ nav button[aria-current="page"]{color:var(--brand)}
   <p class="note">Everything is stored on this device only. Add the page to your Home Screen from Safari's share menu and it opens full-screen like a native app.</p>
   <button class="danger" id="p-reset">Reset all progress</button>
 </main>
+</section>
+
+<!-- ==================== TAB 2 · ПАДЕЖИ ==================== -->
+<section class="tab" id="tab-padez">
+  <div class="segmented subnav" role="group" aria-label="Case practice modes">
+    <button data-view="play" aria-pressed="true">Play</button>
+    <button data-view="tutor" aria-pressed="false">Tutor</button>
+    <button data-view="charts" aria-pressed="false">Charts</button>
+  </div>
+
+  <main id="v-play" class="on">
+    <div class="levels" id="pd-levels" role="group" aria-label="Difficulty"></div>
+    <div class="xpwrap">
+      <div class="xprow"><span id="xp-level">Level 1</span><span id="xp-text">0 / 100 XP</span></div>
+      <div class="xpbar"><i id="xp-fill" style="width:0%"></i></div>
+    </div>
+    <div class="metabar">
+      <span class="chip" id="ch-streak">🔥 <b>0</b></span>
+      <span class="chip" id="ch-acc">🎯 <b>—</b></span>
+      <span class="chip" id="ch-count">📚 <b>0</b></span>
+    </div>
+
+    <div class="qcard" id="pd-card">
+      <div class="qtag" id="pd-tag">Genitiv</div>
+      <div class="qword" id="pd-word">kuća</div>
+      <div class="qask" id="pd-ask">What is the genitive?</div>
+      <div class="qgloss" id="pd-gloss"></div>
+      <button class="saybtn qsay" id="pd-say" hidden>▶</button>
+    </div>
+
+    <div class="opts" id="pd-opts"></div>
+    <form id="pd-form" hidden autocomplete="off">
+      <input type="text" id="pd-input" placeholder="type the form" autocapitalize="off"
+             autocorrect="off" spellcheck="false" enterkeyhint="go">
+      <div class="row2">
+        <button type="button" class="btn ghost" id="pd-mic" hidden>🎙 Speak</button>
+        <button type="submit" class="btn" id="pd-check">Check</button>
+      </div>
+    </form>
+    <div class="feedback" id="pd-feedback"></div>
+    <div class="pattern" id="pd-pattern" hidden></div>
+  </main>
+
+  <main id="v-tutor">
+    <div class="tutorlog" id="tt-log"></div>
+    <form id="tt-form" autocomplete="off">
+      <input type="text" id="tt-input" placeholder="your answer" autocapitalize="off"
+             autocorrect="off" spellcheck="false" enterkeyhint="send">
+      <div class="row2">
+        <button type="button" class="btn ghost" id="tt-mic" hidden>🎙 Speak</button>
+        <button type="submit" class="btn">Send</button>
+      </div>
+    </form>
+    <p class="note">The tutor asks, you answer, it corrects and moves straight on.
+      Type <code>skip</code> to pass, <code>?</code> for the answer.</p>
+  </main>
+
+  <main id="v-charts">
+    <h2>The seven cases</h2>
+    <p class="lede">Endings for the singular, then the plural. Adjective ending first, noun ending second — the pattern your notes use.</p>
+    <div id="ch-charts"></div>
+  </main>
+</section>
+
+<!-- ==================== TAB 3 · VOCAB ==================== -->
+<section class="tab" id="tab-vocab">
+  <div class="segmented subnav" role="group" aria-label="Vocabulary modes">
+    <button data-view="quiz" aria-pressed="true">Quiz</button>
+    <button data-view="browse" aria-pressed="false">Word list</button>
+  </div>
+
+  <main id="v-quiz" class="on">
+    <div class="metabar">
+      <span class="chip" id="vq-streak">🔥 <b>0</b></span>
+      <span class="chip" id="vq-acc">🎯 <b>—</b></span>
+      <span class="chip" id="vq-dir">sr → en</span>
+    </div>
+    <div class="qcard">
+      <div class="qtag" id="vq-tag">What does it mean?</div>
+      <div class="qword" id="vq-word">zid</div>
+      <button class="saybtn qsay" id="vq-say">▶</button>
+    </div>
+    <div class="opts" id="vq-opts"></div>
+    <div class="feedback" id="vq-feedback"></div>
+  </main>
+
+  <main id="v-browse">
+    <input type="text" id="wb-search" placeholder="search Serbian or English" autocapitalize="off"
+           autocorrect="off" spellcheck="false" aria-label="Search the word list">
+    <div class="filters" id="wb-filters"></div>
+    <div class="wordcount" id="wb-count"></div>
+    <div class="wordlist" id="wb-list"></div>
+  </main>
+</section>
 
 <nav>
-  <button data-view="learn" aria-current="page"><span class="ic">Аз</span>Learn</button>
-  <button data-view="drill"><span class="ic">?</span>Drill</button>
-  <button data-view="read"><span class="ic">Ш</span>Read</button>
-  <button data-view="sprint"><span class="ic">⟶</span>Sprint</button>
-  <button data-view="prog"><span class="ic">◔</span>Progress</button>
+  <button data-tab="azbuka" aria-current="page"><span class="ic">Аз</span>Ћирилица</button>
+  <button data-tab="padez"><span class="ic">Пд</span>Падежи</button>
+  <button data-tab="vocab"><span class="ic">Рч</span>Vocab</button>
 </nav>
 </div>
 
-<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-label="Letter detail">
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-label="Detail">
   <div class="sheet-inner" id="sheetInner"></div>
 </div>
 
-<script>
-/* ================= DATA ================= */
-// group: free = same shape+sound as Latin, trap = Latin-looking but different, new = unfamiliar shape
-const L = [
- {u:"А",l:"а",lat:"a",name:"а",sound:"ah",eng:"a in father, always short and open",group:"free",w:["адреса","adresa","address"]},
- {u:"Б",l:"б",lat:"b",name:"бе",sound:"b",eng:"b in bed",group:"new",hook:"Not the Latin B — that shape is В and says <b>v</b>. Б has the flag folded over to the left.",w:["брат","brat","brother"]},
- {u:"В",l:"в",lat:"v",name:"ве",sound:"v",eng:"v in very",group:"trap",hook:"Looks like <b>B</b>, says <b>v</b>. Think of <b>В</b>ино — wine, not <i>bino</i>.",w:["вода","voda","water"]},
- {u:"Г",l:"г",lat:"g",name:"ге",sound:"g",eng:"g in go — never the g in gem",group:"new",hook:"A gallows or a table with one leg. Always hard: <b>Г</b>рад = grad, never <i>jrad</i>.",w:["град","grad","city"]},
- {u:"Д",l:"д",lat:"d",name:"де",sound:"d",eng:"d in dog",group:"new",hook:"A little house with two feet. In italic it collapses to something like a Latin <i>g</i>.",w:["дан","dan","day"]},
- {u:"Ђ",l:"ђ",lat:"đ",name:"ђе",sound:"dj",eng:"soft j — the d in British duty, halfway to jeans",group:"new",hook:"Ћ with a belly. The soft pair to Ћ, voiced like <b>Ђ</b>орђе (Djordje).",w:["ђак","đak","pupil"]},
- {u:"Е",l:"е",lat:"e",name:"е",sound:"eh",eng:"e in bed — never ee",group:"free",w:["евро","evro","euro"]},
- {u:"Ж",l:"ж",lat:"ž",name:"же",sound:"zh",eng:"s in measure",group:"new",hook:"A beetle, or a mirrored K on both sides. Buzzy: <b>ж</b>ена = zhena.",w:["жена","žena","woman"]},
- {u:"З",l:"з",lat:"z",name:"зе",sound:"z",eng:"z in zoo",group:"new",hook:"It is a handwritten 3 — and 3 rhymes with z's job here. Not an E.",w:["зима","zima","winter"]},
- {u:"И",l:"и",lat:"i",name:"и",sound:"ee",eng:"i in machine",group:"new",hook:"A backwards N that says <b>ee</b>. The tilted bar climbs toward the ee sound.",w:["има","ima","there is"]},
- {u:"Ј",l:"ј",lat:"j",name:"јот",sound:"y",eng:"y in yes",group:"trap",hook:"Latin J shape, German J sound: <b>Ј</b>угославија = Yugoslavia.",w:["јуче","juče","yesterday"]},
- {u:"К",l:"к",lat:"k",name:"ка",sound:"k",eng:"k in kite",group:"free",w:["кафа","kafa","coffee"]},
- {u:"Л",l:"л",lat:"l",name:"ел",sound:"l",eng:"l in look",group:"new",hook:"A little tent or an upside-down V with a foot. Not an A — it has no crossbar.",w:["лепо","lepo","nice"]},
- {u:"Љ",l:"љ",lat:"lj",name:"ље",sound:"ly",eng:"lli in million",group:"new",hook:"Л tied to a soft sign — one letter, one soft sound. <b>Љ</b>убав = lyubav, love.",w:["љубав","ljubav","love"]},
- {u:"М",l:"м",lat:"m",name:"ем",sound:"m",eng:"m in map",group:"free",w:["мајка","majka","mother"]},
- {u:"Н",l:"н",lat:"n",name:"ен",sound:"n",eng:"n in no",group:"trap",hook:"Looks like <b>H</b>, says <b>n</b>. <b>Н</b>ови Сад is Novi Sad, not Howi Sad.",w:["ноћ","noć","night"]},
- {u:"Њ",l:"њ",lat:"nj",name:"ње",sound:"ny",eng:"ny in canyon",group:"new",hook:"Н tied to a soft sign, same trick as Љ. Ко<b>њ</b> = konj, horse.",w:["књига","knjiga","book"]},
- {u:"О",l:"о",lat:"o",name:"о",sound:"oh",eng:"o in more, short and round",group:"free",w:["око","oko","eye"]},
- {u:"П",l:"п",lat:"p",name:"пе",sound:"p",eng:"p in pen",group:"new",hook:"A doorway or the Greek pi. Not an N and not an R — <b>П</b>иво = pivo, beer.",w:["пиво","pivo","beer"]},
- {u:"Р",l:"р",lat:"r",name:"ер",sound:"r",eng:"a tapped, rolled r as in Spanish pero",group:"trap",hook:"Looks like <b>P</b>, says <b>r</b>. The big one: <b>Р</b>ека = reka, river.",w:["река","reka","river"]},
- {u:"С",l:"с",lat:"s",name:"ес",sound:"s",eng:"s in sun — never the c in city or cat",group:"trap",hook:"Looks like <b>C</b>, says <b>s</b> always. <b>С</b>рбија = Srbija.",w:["срце","srce","heart"]},
- {u:"Т",l:"т",lat:"t",name:"те",sound:"t",eng:"t in top",group:"free",w:["тата","tata","dad"]},
- {u:"Ћ",l:"ћ",lat:"ć",name:"ће",sound:"tch",eng:"soft ch — the t in tune, lighter than Ч",group:"new",hook:"A t with a hat. Soft twin of Ч, and the voiceless partner of Ђ.",w:["кућа","kuća","house"]},
- {u:"У",l:"у",lat:"u",name:"у",sound:"oo",eng:"oo in boot",group:"trap",hook:"Looks like <b>Y</b>, says <b>oo</b>. <b>У</b>лаз = ulaz, entrance.",w:["улица","ulica","street"]},
- {u:"Ф",l:"ф",lat:"f",name:"еф",sound:"f",eng:"f in fun",group:"new",hook:"Greek phi — a circle skewered on a stick. Rare in native words.",w:["фотографија","fotografija","photograph"]},
- {u:"Х",l:"х",lat:"h",name:"ха",sound:"h",eng:"h in hat, breathier — like Scottish loch",group:"trap",hook:"Looks like <b>X</b>, says <b>h</b>. <b>Х</b>вала = hvala, thank you.",w:["хлеб","hleb","bread"]},
- {u:"Ц",l:"ц",lat:"c",name:"це",sound:"ts",eng:"ts in cats",group:"new",hook:"A U with a tail. Never a k or s sound — always <b>ts</b>.",w:["цвеће","cveće","flowers"]},
- {u:"Ч",l:"ч",lat:"č",name:"че",sound:"ch",eng:"ch in church, hard",group:"new",hook:"A wine glass. The hard ch; Ћ is the soft one.",w:["чај","čaj","tea"]},
- {u:"Џ",l:"џ",lat:"dž",name:"џе",sound:"j",eng:"j in judge",group:"new",hook:"Ц with the tail moved to the middle. Voiced partner of Ч.",w:["џеп","džep","pocket"]},
- {u:"Ш",l:"ш",lat:"š",name:"ша",sound:"sh",eng:"sh in shoe",group:"new",hook:"Three prongs, like a shhh-ing hand. <b>Ш</b>ума = shuma, forest.",w:["шума","šuma","forest"]}
-];
-const ITALIC_SHIFT="бгдпт";
+<div class="sheet" id="stats" role="dialog" aria-modal="true" aria-label="Your progress">
+  <div class="sheet-inner" id="statsInner"></div>
+</div>
 
-const SETS={
- signs:[["ИЗЛАЗ","izlaz","exit"],["УЛАЗ","ulaz","entrance"],["ОТВОРЕНО","otvoreno","open"],["ЗАТВОРЕНО","zatvoreno","closed"],["ПЕКАРА","pekara","bakery"],["АПОТЕКА","apoteka","pharmacy"],["ПОШТА","pošta","post office"],["БАНКА","banka","bank"],["ПИЈАЦА","pijaca","market"],["СТАНИЦА","stanica","station"],["АЕРОДРОМ","aerodrom","airport"],["ТОАЛЕТ","toalet","toilet"],["ЗАБРАЊЕНО","zabranjeno","forbidden"],["ПАРКИНГ","parking","parking"],["БОЛНИЦА","bolnica","hospital"],["ПОЛИЦИЈА","policija","police"],["РЕСТОРАН","restoran","restaurant"],["КЊИЖАРА","knjižara","bookshop"],["МЕЊАЧНИЦА","menjačnica","currency exchange"],["ПРОДАВНИЦА","prodavnica","shop"]],
- words:[["хвала","hvala","thank you"],["здраво","zdravo","hello"],["молим","molim","please"],["вода","voda","water"],["кафа","kafa","coffee"],["пиво","pivo","beer"],["хлеб","hleb","bread"],["сир","sir","cheese"],["месо","meso","meat"],["риба","riba","fish"],["јабука","jabuka","apple"],["новац","novac","money"],["карта","karta","ticket"],["воз","voz","train"],["аутобус","autobus","bus"],["улица","ulica","street"],["кућа","kuća","house"],["пријатељ","prijatelj","friend"],["љубав","ljubav","love"],["срце","srce","heart"],["сунце","sunce","sun"],["месец","mesec","month, moon"],["планина","planina","mountain"],["ђубре","đubre","rubbish"],["џемпер","džemper","jumper"],["чаша","čaša","glass"],["шећер","šećer","sugar"],["цвеће","cveće","flowers"],["жена","žena","woman"],["човек","čovek","man"],["Београд","Beograd","Belgrade"],["Србија","Srbija","Serbia"],["Нови Сад","Novi Sad","Novi Sad"]],
- phrases:[["Добро јутро","Dobro jutro","Good morning"],["Добар дан","Dobar dan","Good day"],["Лаку ноћ","Laku noć","Good night"],["Довиђења","Doviđenja","Goodbye"],["Како сте?","Kako ste?","How are you?"],["Колико кошта?","Koliko košta?","How much does it cost?"],["Не разумем","Ne razumem","I don't understand"],["Говорите ли енглески?","Govorite li engleski?","Do you speak English?"],["Извините, молим вас","Izvinite, molim vas","Excuse me, please"],["Где је станица?","Gde je stanica?","Where is the station?"],["Једно пиво, молим","Jedno pivo, molim","One beer, please"],["Хвала лепо","Hvala lepo","Thank you kindly"],["Живели!","Živeli!","Cheers!"],["Драго ми је","Drago mi je","Pleased to meet you"],["Молим вас, рачун","Molim vas, račun","The bill, please"]]
-};
+<div class="burst" id="burst" aria-hidden="true"></div>
 
-/* ================= STATE ================= */
-const KEY="azbuka.v1";
-const byU={}; L.forEach(x=>byU[x.u]=x);
-const CONFUSE={"В":["Б","Р","Н"],"Н":["В","И","П"],"Р":["П","Г","В"],"С":["Ц","Е","О"],
- "У":["Ч","Ц","Х"],"Х":["Ж","К","Ч"],"Ј":["И","Љ","Ћ"],"Ћ":["Ђ","Ч","Џ"],"Ђ":["Ћ","Џ","Ч"],
- "Ч":["Ћ","Џ","Ц"],"Џ":["Ц","Ч","Ш"],"Ц":["Џ","Ч","С"],"Љ":["Њ","Л","Ђ"],"Њ":["Љ","Н","И"],
- "Ш":["Ц","Ж","Ч"],"Ж":["Ш","Х","Ч"],"И":["Н","Л","П"],"Б":["В","Ђ","Р"],
- "Г":["Т","П","Р"],"Д":["Л","Б","Ђ"],"Л":["Д","И","Њ"],"П":["Н","Г","И"],"З":["Е","С","Ж"]};
-Object.keys(CONFUSE).forEach(k=>CONFUSE[k]=CONFUSE[k].filter(x=>byU[x]));
-
-function blank(){const st={};L.forEach(x=>st[x.u]={n:0,c:0,run:0,ms:0});
-  return{st,words:0,best:0,day:"",days:0,total:0,hits:0};}
-let S=load();
-function load(){try{const r=JSON.parse(localStorage.getItem(KEY));if(!r||!r.st)return blank();
-  const b=blank();L.forEach(x=>{if(r.st[x.u])b.st[x.u]=r.st[x.u]});
-  return Object.assign(b,{words:r.words|0,best:r.best||0,day:r.day||"",days:r.days|0,total:r.total|0,hits:r.hits|0});
-  }catch(e){return blank()}}
-function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
-function today(){return new Date().toISOString().slice(0,10)}
-function touchDay(){const t=today();if(S.day===t)return;
-  const y=new Date(Date.now()-864e5).toISOString().slice(0,10);
-  S.days = (S.day===y)?S.days+1:1; S.day=t; save();}
-function level(u){const s=S.st[u];if(!s||!s.n)return 0;
-  const acc=s.c/s.n, fast=s.ms&&s.ms<2200;
-  let lv=Math.min(5,s.run);
-  if(acc<.7)lv=Math.min(lv,2);
-  if(lv>=4&&!fast)lv=4;
-  return lv;}
-function fluency(){
-  const know=L.reduce((a,x)=>a+level(x.u)/5,0)/L.length;
-  const pace=Math.min(1,S.best/60);
-  return Math.round((know*.75+pace*.25)*100);}
-
-/* ================= HELPERS ================= */
-const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
-function fold(s){return s.toLowerCase().replace(/đ/g,"dj").replace(/ž/g,"z").replace(/š/g,"s")
-  .replace(/č/g,"c").replace(/ć/g,"c").replace(/[^a-z]/g,"");}
-function translit(s){let o="";for(const ch of s){const up=ch.toUpperCase();
-  const e=byU[up]; if(!e){o+=ch;continue;} o+= (ch===up? e.lat.charAt(0).toUpperCase()+e.lat.slice(1) : e.lat);}
-  return o;}
-function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a}
-function pickLetter(){
-  const w=L.map(x=>({x,w:Math.pow(6-level(x.u),2)+1}));
-  const tot=w.reduce((a,b)=>a+b.w,0); let r=Math.random()*tot;
-  for(const it of w){r-=it.w;if(r<=0)return it.x} return L[0];}
-function distractors(e,n){
-  const pool=[...(CONFUSE[e.u]||[])].map(u=>byU[u]);
-  shuffle(pool);
-  const out=pool.slice(0,n);
-  const rest=shuffle(L.filter(x=>x!==e&&!out.includes(x)));
-  while(out.length<n)out.push(rest.pop());
-  return out;}
-function record(u,ok,ms,cap){
-  const s=S.st[u]; s.n++; S.total++;
-  if(ok){s.c++;S.hits++;
-    if(!cap||s.run<cap)s.run++;
-    if(!cap)s.ms=s.ms?Math.round(s.ms*.7+ms*.3):ms;
-  }else{s.run=0}
-  touchDay(); save();}
-let voice=null;
-function say(text){
-  if(!("speechSynthesis" in window))return;
-  const vs=speechSynthesis.getVoices();
-  voice=vs.find(v=>/^(sr|hr|bs|sh)/i.test(v.lang))||voice;
-  const u=new SpeechSynthesisUtterance(text);
-  u.lang=voice?voice.lang:"sr-RS"; if(voice)u.voice=voice; u.rate=.85;
-  speechSynthesis.cancel(); speechSynthesis.speak(u);}
-if("speechSynthesis" in window)speechSynthesis.onvoiceschanged=()=>{};
-
-/* ================= LEARN ================= */
-function cell(e){
-  const lv=level(e.u);
-  return '<button class="cell '+e.group+'" data-u="'+e.u+'" aria-label="'+e.u+', '+e.sound+'">'+
-    '<span class="gl">'+e.u+e.l+'</span><span class="tr">'+e.lat+'</span>'+
-    '<span class="bar" style="width:'+(lv/5*100)+'%"></span></button>';}
-function paintLearn(){
-  $("#g-free").innerHTML=L.filter(x=>x.group==="free").map(cell).join("");
-  $("#g-trap").innerHTML=L.filter(x=>x.group==="trap").map(cell).join("");
-  $("#g-new").innerHTML=L.filter(x=>x.group==="new").map(cell).join("");
-  $("#g-all").innerHTML=L.map(cell).join("");}
-document.addEventListener("click",ev=>{
-  const c=ev.target.closest(".cell"); if(!c)return; openSheet(byU[c.dataset.u]);});
-function openSheet(e){
-  const ital = ITALIC_SHIFT.includes(e.l) ? '<span class="ital">'+e.l+'</span>' : '';
-  $("#sheetInner").innerHTML='<div class="grip"></div>'+
-   '<div class="bigrow"><span class="caps">'+e.u+'</span><span class="lc">'+e.l+'</span>'+ital+
-   '<button class="saybtn" data-say="'+e.w[0]+'">▶ Hear it</button></div>'+
-   '<div class="latinline"><span>writes as</span><b>'+e.lat+'</b></div>'+
-   '<dl class="deftable"><dt>Sound</dt><dd>'+e.sound+'</dd>'+
-   '<dt>As in</dt><dd>'+e.eng+'</dd><dt>Letter name</dt><dd>'+e.name+'</dd>'+
-   '<dt>Strength</dt><dd>'+["not started","shaky","learning","getting there","nearly automatic","automatic"][level(e.u)]+'</dd></dl>'+
-   (e.hook?'<div class="hook">'+e.hook+'</div>':'')+
-   '<div class="exword"><span class="cy">'+e.w[0]+'</span><span class="rom">'+e.w[1]+'</span><span class="en">'+e.w[2]+'</span></div>'+
-   (ital?'<p class="note">In italic and handwriting this letter changes shape — the third form above is what you meet in print italics.</p>':'')+
-   '<button class="btn ghost" id="sheetClose" style="margin-top:18px">Close</button>';
-  $("#sheet").classList.add("on");}
-$("#sheet").addEventListener("click",ev=>{
-  const b=ev.target.closest("[data-say]");
-  if(b){say(b.dataset.say);return;}
-  if(ev.target.closest("#sheetClose")){$("#sheet").classList.remove("on");return;}
-  if(ev.target.id==="sheet")$("#sheet").classList.remove("on");});
-document.addEventListener("keydown",e=>{if(e.key==="Escape")$("#sheet").classList.remove("on")});
-
-/* ================= DRILL ================= */
-let dDir="c2l", dCur=null, dT0=0, dLock=false, dRun=0, dN=0, dOK=0, dMs=[];
-function newDrill(){
-  dLock=false; $("#d-feedback").innerHTML="";
-  const e=pickLetter(); dCur=e;
-  const dir = dDir==="mix" ? (Math.random()<.5?"c2l":"l2c") : dDir;
-  const opts=shuffle([e,...distractors(e,3)]);
-  const P=$("#d-prompt");
-  if(dir==="c2l"){
-    $("#d-label").textContent="Which sound?";
-    P.className="prompt"; P.textContent=e.u+" "+e.l;
-    $("#d-sub").textContent="";
-    $("#d-opts").innerHTML=opts.map(o=>'<button class="opt tr" data-u="'+o.u+'">'+o.lat+'<div style="font-size:11px;font-family:Golos Text,sans-serif;color:var(--muted);font-weight:400;margin-top:2px">'+o.sound+'</div></button>').join("");
-  }else{
-    $("#d-label").textContent="Which letter?";
-    P.className="prompt mono"; P.textContent=e.lat;
-    $("#d-sub").textContent="sounds like “"+e.sound+"”";
-    $("#d-opts").innerHTML=opts.map(o=>'<button class="opt cy" data-u="'+o.u+'">'+o.u+" "+o.l+'</button>').join("");
-  }
-  dT0=performance.now();}
-$("#d-opts").addEventListener("click",ev=>{
-  const b=ev.target.closest(".opt"); if(!b||dLock)return; dLock=true;
-  const ms=performance.now()-dT0, ok=b.dataset.u===dCur.u;
-  record(dCur.u,ok,ms); dN++;
-  if(ok){dOK++;dRun++;dMs.push(ms);if(dMs.length>10)dMs.shift();
-    b.classList.add("right");
-    $("#d-feedback").innerHTML='<span class="ok">'+dCur.u+' = '+dCur.lat+'</span> · '+(ms/1000).toFixed(1)+'s';
-  }else{
-    dRun=0; b.classList.add("wrong");
-    $$("#d-opts .opt").forEach(o=>{if(o.dataset.u===dCur.u)o.classList.add("right")});
-    $("#d-feedback").innerHTML='<span class="no">'+dCur.u+dCur.l+' is '+dCur.lat+'</span> — '+dCur.eng;
-  }
-  $$("#d-opts .opt").forEach(o=>o.disabled=true);
-  updDrill();
-  setTimeout(newDrill, ok?620:1900);});
-function updDrill(){
-  $("#d-run").textContent=dRun;
-  $("#d-acc").textContent=dN?Math.round(dOK/dN*100)+"%":"—";
-  $("#d-ms").textContent=dMs.length?(dMs.reduce((a,b)=>a+b,0)/dMs.length/1000).toFixed(1)+"s":"—";}
-$$(".segmented [data-dir]").forEach(b=>b.addEventListener("click",()=>{
-  $$(".segmented [data-dir]").forEach(x=>x.setAttribute("aria-pressed",x===b));
-  dDir=b.dataset.dir; newDrill();}));
-
-/* ================= READ ================= */
-let rSet="signs", rCur=null, rShown=false;
-function newRead(){
-  rShown=false;
-  const pool=SETS[rSet];
-  let pick=pool[Math.random()*pool.length|0];
-  if(rCur&&pool.length>1){let g=0;while(pick[0]===rCur[0]&&g++<6)pick=pool[Math.random()*pool.length|0];}
-  rCur=pick;
-  const w=$("#r-word"); w.textContent=pick[0];
-  w.className="readword"+(pick[0].length>10?" long":"");
-  $("#r-meta").textContent="Read it aloud, then type it in Latin letters";
-  $("#r-answer").textContent=""; $("#r-gloss").textContent=""; $("#r-trace").innerHTML="";
-  $("#r-input").value=""; $("#r-next").textContent="Check";}
-function revealRead(scored){
-  if(rShown)return; rShown=true;
-  $("#r-answer").textContent=rCur[1];
-  $("#r-gloss").textContent=rCur[2];
-  $("#r-trace").innerHTML=[...rCur[0]].filter(c=>byU[c.toUpperCase()])
-    .map(c=>{const e=byU[c.toUpperCase()];return '<span><b>'+c+'</b> '+e.lat+'</span>'}).join("");
-  $("#r-next").textContent="Next";
-  if(scored){
-    S.words++; [...rCur[0]].forEach(c=>{const e=byU[c.toUpperCase()];if(e)record(e.u,true,0,3)});
-    save();
-  }
-  say(rCur[0]);}
-$("#r-next").addEventListener("click",()=>{
-  if(rShown){newRead();return;}
-  const typed=$("#r-input").value.trim();
-  if(!typed){revealRead(false);$("#r-meta").textContent="Answer shown — no credit this time";return;}
-  const ok=fold(typed)===fold(rCur[1]);
-  $("#r-meta").innerHTML = ok
-    ? '<span style="color:var(--good);font-weight:600">Correct — you read it.</span>'
-    : '<span style="color:var(--bad);font-weight:600">Not quite. You wrote “'+typed.replace(/[<>&]/g,"")+'”.</span>';
-  revealRead(ok);});
-$("#r-reveal").addEventListener("click",()=>{revealRead(false);$("#r-meta").textContent="Answer shown — no credit this time";});
-$("#r-input").addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();$("#r-next").click()}});
-$$(".segmented [data-set]").forEach(b=>b.addEventListener("click",()=>{
-  $$(".segmented [data-set]").forEach(x=>x.setAttribute("aria-pressed",x===b));
-  rSet=b.dataset.set; rCur=null; newRead();}));
-
-/* ================= SPRINT ================= */
-let sOn=false,sLeft=60,sScore=0,sTimer=null,sCur=null,sT0=0;
-function sprintQ(){
-  const e=pickLetter(); sCur=e; sT0=performance.now();
-  $("#s-label").textContent="Which sound?";
-  $("#s-prompt").textContent=e.u+" "+e.l;
-  $("#s-sub").textContent="";
-  $("#s-opts").innerHTML=shuffle([e,...distractors(e,3)])
-    .map(o=>'<button class="opt tr" data-u="'+o.u+'">'+o.lat+'</button>').join("");}
-$("#s-opts").addEventListener("click",ev=>{
-  const b=ev.target.closest(".opt"); if(!b||!sOn)return;
-  const ok=b.dataset.u===sCur.u;
-  record(sCur.u,ok,performance.now()-sT0);
-  if(ok){sScore++}else{
-    b.classList.add("wrong");
-    $$("#s-opts .opt").forEach(o=>{if(o.dataset.u===sCur.u)o.classList.add("right")});}
-  $("#s-score").textContent=sScore;
-  if(ok)sprintQ(); else{$$("#s-opts .opt").forEach(o=>o.disabled=true);setTimeout(()=>{if(sOn)sprintQ()},900);}});
-$("#s-start").addEventListener("click",()=>{
-  if(sOn){endSprint();return;}
-  sOn=true; sLeft=60; sScore=0;
-  $("#s-score").textContent="0"; $("#s-start").textContent="Stop early";
-  $("#s-start").classList.add("ghost");
-  sprintQ();
-  sTimer=setInterval(()=>{
-    sLeft--; $("#s-time").textContent=sLeft;
-    if(sLeft<=0)endSprint(true);},1000);});
-function endSprint(full){
-  clearInterval(sTimer); sOn=false;
-  const pace=sScore; // correct letters recognised in 60 seconds
-  if(full&&pace>S.best){S.best=pace}
-  save();
-  $("#s-time").textContent="60";
-  $("#s-label").textContent="Time";
-  $("#s-prompt").textContent=sScore;
-  $("#s-sub").innerHTML= full
-    ? ("letters in a minute · "+(pace>=60?"faster than one a second — that is automatic":Math.round(pace/60*100)+"% of the way to one a second"))
-    : "stopped early · only a full minute counts for your record";
-  $("#s-opts").innerHTML="";
-  $("#s-start").textContent="Run it again"; $("#s-start").classList.remove("ghost");
-  $("#s-best").textContent=S.best?S.best:"—";
-  paintProg(); paintLearn();}
-
-/* ================= PROGRESS ================= */
-function heatColor(lv){
-  if(lv===0)return "var(--surface)";
-  return "color-mix(in srgb, var(--brand) "+(lv*17)+"%, var(--brand-soft))";}
-function paintProg(){
-  const f=fluency();
-  $("#p-pct").textContent=f+"%";
-  $("#p-arc").style.strokeDashoffset=264-264*f/100;
-  $("#p-lbl").textContent = f<15?"Reading fluency · just starting"
-    : f<40?"Reading fluency · shapes are landing"
-    : f<70?"Reading fluency · you can decode most things"
-    : f<92?"Reading fluency · close to effortless"
-    : "Reading fluency · you read it like English";
-  $("#p-mastered").textContent=L.filter(x=>level(x.u)>=4).length+"/30";
-  $("#p-words").textContent=S.words;
-  $("#p-pace").textContent=S.best||"—";
-  $("#p-heat").innerHTML=L.map(e=>{const lv=level(e.u);
-    return '<div class="hcell" style="background:'+heatColor(lv)+';'+(lv>=4?'border-color:var(--brand);color:var(--bg)':'')+'">'+
-      e.u+'<small>'+e.lat+'</small></div>';}).join("");
-  const weak=[...L].sort((a,b)=>level(a.u)-level(b.u)||(S.st[b.u].n-S.st[a.u].n)).slice(0,5);
-  $("#p-weak").innerHTML=weak.map(cell).join("");
-  $("#streakChip").textContent = S.days>1 ? S.days+"-day streak" : (S.total? "day 1" : "start today");}
-$("#p-reset").addEventListener("click",()=>{
-  if(!confirm("Erase every letter score, streak and sprint record on this device?"))return;
-  S=blank(); save(); paintLearn(); paintProg(); updDrill();});
-
-/* ================= NAV ================= */
-const VIEWS=["learn","drill","read","sprint","prog"];
-function go(v){
-  VIEWS.forEach(n=>$("#v-"+n).classList.toggle("on",n===v));
-  $$("nav button").forEach(b=>b.setAttribute("aria-current",b.dataset.view===v?"page":"false"));
-  window.scrollTo(0,0);
-  if(v==="prog")paintProg();
-  if(v==="learn")paintLearn();
-  if(v==="drill"&&!dCur)newDrill();
-  if(v==="read"&&!rCur)newRead();
-  if(v!=="sprint"&&sOn)endSprint();}
-$$("nav button").forEach(b=>b.addEventListener("click",()=>go(b.dataset.view)));
-
-/* ================= INIT ================= */
-paintLearn(); paintProg(); newDrill(); newRead(); updDrill();
-$("#s-best").textContent=S.best||"—";
-</script>
-
+<script src="vocab.js"></script>
+<script src="azbuka.js"></script>
+<script src="game.js"></script>
 <script>
 if("serviceWorker" in navigator&&location.protocol==="https:"){
   addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));

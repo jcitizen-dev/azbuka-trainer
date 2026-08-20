@@ -1,7 +1,7 @@
 {
-  "name": "Azbuka Trainer",
+  "name": "Azbuka & Padeži",
   "short_name": "Azbuka",
-  "description": "Learn to read Serbian Cyrillic: all thirty letters, adaptive drills, real-word reading and a timed fluency sprint.",
+  "description": "Serbian trainer: the Cyrillic alphabet, the seven cases, and a vocabulary quiz.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",

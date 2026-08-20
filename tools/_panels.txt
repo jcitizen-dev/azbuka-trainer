@@ -1,0 +1,75 @@
+<main id="v-learn" class="on">
+  <h2>The thirty letters</h2>
+  <p class="lede">Serbian Cyrillic is perfectly phonetic: one letter, one sound, always. Tap any letter for its sound, a memory hook, and a real word. Green letters you already know from Latin; red ones are the traps that look familiar and aren't.</p>
+  <div class="eyebrow">Free rides · look and sound the same</div>
+  <div class="grid" id="g-free"></div>
+  <div class="eyebrow">The traps · familiar shape, different sound</div>
+  <div class="grid" id="g-trap"></div>
+  <div class="eyebrow">New shapes · nothing to unlearn</div>
+  <div class="grid" id="g-new"></div>
+  <div class="eyebrow">Full azbuka order</div>
+  <div class="grid" id="g-all"></div>
+  <p class="note">The bar under each letter is your recall strength, built from drills and reading. Serbian italic and handwritten forms differ from print for <b>б г д п т</b> — the sheet for each shows the italic shape too.</p>
+</main>
+
+<main id="v-drill">
+  <div class="segmented" role="group" aria-label="Drill direction">
+    <button data-dir="c2l" aria-pressed="true">Letter first</button>
+    <button data-dir="l2c" aria-pressed="false">Sound first</button>
+    <button data-dir="mix" aria-pressed="false">Mixed</button>
+  </div>
+  <div class="metabar">
+    <span class="chip"><b id="d-run">0</b> in a row</span>
+    <span class="chip"><b id="d-acc">—</b> accurate</span>
+    <span class="chip"><b id="d-ms">—</b> avg</span>
+  </div>
+  <div class="stage">
+    <div class="prompt-label" id="d-label">Which sound?</div>
+    <div class="prompt" id="d-prompt">А</div>
+    <div class="prompt-sub" id="d-sub"></div>
+  </div>
+  <div class="opts" id="d-opts"></div>
+  <div class="feedback" id="d-feedback"></div>
+</main>
+
+<main id="v-read">
+  <div class="segmented" role="group" aria-label="Reading set">
+    <button data-set="signs" aria-pressed="true">Street signs</button>
+    <button data-set="words" aria-pressed="false">Everyday words</button>
+    <button data-set="phrases" aria-pressed="false">Phrases</button>
+  </div>
+  <div class="card readcard">
+    <div class="readword" id="r-word">ИЗЛАЗ</div>
+    <div class="readmeta" id="r-meta">Read it aloud, then type what you hear in Latin letters</div>
+    <div class="answerline" id="r-answer"></div>
+    <div class="gloss" id="r-gloss"></div>
+    <div class="trace" id="r-trace"></div>
+  </div>
+  <input type="text" id="r-input" placeholder="type the Latin spelling" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" enterkeyhint="go">
+  <div class="row2">
+    <button class="btn ghost" id="r-reveal">Show answer</button>
+    <button class="btn" id="r-next">Check</button>
+  </div>
+  <p class="note">Type it however you can — <code>hvala</code>, <code>zena</code>, <code>djak</code> and <code>ćao</code> all pass. Accents optional. The goal is that your eye turns the shapes into sound without a pause.</p>
+</main>
+
+<main id="v-sprint">
+  <h2>Sixty-second sprint</h2>
+  <p class="lede">Fluency is speed, not just accuracy. Tap the right sound as fast as you can for sixty seconds. Sixty letters a minute — one a second — means recognition has gone automatic, which is the whole point.</p>
+  <div class="metabar">
+    <span class="chip live"><b id="s-time">60</b>s left</span>
+    <span class="chip"><b id="s-score">0</b> correct</span>
+    <span class="chip"><b id="s-best">—</b> best</span>
+  </div>
+  <div class="stage">
+    <div class="prompt-label" id="s-label">Ready</div>
+    <div class="prompt" id="s-prompt">Ћ</div>
+    <div class="prompt-sub" id="s-sub">Tap start when you are</div>
+  </div>
+  <div class="opts" id="s-opts"></div>
+  <button class="btn" id="s-start" style="margin-top:14px">Start sprint</button>
+</main>
+
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-label="Letter detail">
+  <div class="sheet-inner" id="sheetInner"></div>
+</div>
