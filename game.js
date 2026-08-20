@@ -78,10 +78,10 @@ const FRAMES=[
 
 /* ============================== PROGRESS ============================== */
 const KEY="padez.v1";
-function blank(){return{xp:0,n:0,c:0,streak:0,best:0,srs:{},badges:[],pat:{},seen:{},vq:{n:0,c:0,streak:0}};}
+function blank(){return{xp:0,n:0,c:0,streak:0,best:0,srs:{},badges:[],pat:{},seen:{},due:[],vq:{n:0,c:0,streak:0}};}
 let P=load();
 function load(){try{const r=JSON.parse(localStorage.getItem(KEY));if(!r)return blank();
-  return Object.assign(blank(),r,{srs:r.srs||{},pat:r.pat||{},seen:r.seen||{},vq:r.vq||{n:0,c:0,streak:0}});
+  return Object.assign(blank(),r,{srs:r.srs||{},pat:r.pat||{},seen:r.seen||{},due:r.due||[],vq:r.vq||{n:0,c:0,streak:0}});
   }catch(e){return blank()}}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(P))}catch(e){}}
 const srsKey=(w,c)=>w+"|"+c;
@@ -118,7 +118,9 @@ function score(ok,word,caseKey){
   }else{ P.streak=0; }
   if(word&&caseKey){
     const s=srs(word,caseKey); s.n++;
-    if(ok){s.c++;s.run++}else{s.run=0}
+    if(ok){s.c++;s.run++; queueHit(word,caseKey);} else {s.run=0; queueMiss(word,caseKey);}
+    recent.push(srsKey(word,caseKey));
+    if(recent.length>3)recent.shift();
   }
   save();
   paintMeters();
@@ -201,12 +203,56 @@ function explain(v,ck){
 /* ========================= QUESTION GENERATION ========================= */
 function weight(v,ck){
   const s=P.srs[srsKey(v.word,ck)];
-  let w = !s ? 3 : (s.run>=3 ? 0.4 : 1 + 2*Math.max(0,s.n-s.c));
+  const wrong = s ? Math.max(0,s.n-s.c) : 0;
+  let w;
+  if(!s)              w = 2;                      // new material
+  else if(s.run>=3)   w = 0.35;                   // solid — keep it ticking over
+  else if(wrong)      w = 5 + 3*wrong;            // missed: outranks everything else
+  else                w = 1.2;                    // seen, right, not solid yet
   if(ck==="nominative")w*=0.4;                                  // too easy to be worth much
   if(ck==="vocative"&&!(v.tags||[]).some(t=>t==="person"||t==="animal"))w*=0.5;
   return w;
 }
+let recent=[], reviewMode=false, reviewCleared=false;
+function queueMiss(w,ck){
+  const k=srsKey(w,ck);
+  P.due=P.due.filter(x=>x!==k); P.due.push(k);
+  if(P.due.length>40)P.due.shift();
+  save();
+}
+function queueHit(w,ck){
+  const k=srsKey(w,ck), s=srs(w,ck);
+  if(!P.due.includes(k))return;
+  P.due=P.due.filter(x=>x!==k);
+  if(s.run<2)P.due.push(k);                       // right once is not learned yet
+  save();
+}
+function fromQueue(){
+  // drawn at random, never in queue order, so a second pass through your
+  // mistakes is not the same run of questions again
+  const valid=P.due.filter(k=>{
+    const w=k.split("|")[0];
+    return BY_WORD[w]&&BY_WORD[w].cases;
+  });
+  // keep the last few off the table so a short queue does not loop on itself
+  let eligible=valid.filter(k=>!recent.includes(k));
+  if(!eligible.length)eligible=valid.filter(k=>k!==recent[recent.length-1]);
+  if(!eligible.length)eligible=valid;
+  if(!eligible.length)return null;
+  const [w,ck]=rnd(eligible).split("|");
+  return {v:BY_WORD[w],ck};
+}
 function pickPair(list){
+  if(!list){
+    // review mode drills only your misses; otherwise they resurface ~1 turn in 3
+    if(reviewMode){
+      const q=fromQueue();
+      if(q)return q;
+      reviewMode=false; reviewCleared=true;   // announced once the next card renders
+    }else if(P.due.length&&Math.random()<0.34){
+      const q=fromQueue(); if(q)return q;
+    }
+  }
   const src=list||NOUNS, cand=[];
   let total=0;
   src.forEach(v=>CASES.forEach(c=>{const w=weight(v,c.k);total+=w;cand.push([v,c.k,w])}));
@@ -281,11 +327,12 @@ function makeQuestion(lvl){
   }
   const {v,ck}=pickPair();
   const cs=CASE_BY_KEY[ck];
+  const repeat=P.due.includes(srsKey(v.word,ck));
   if(kind==="context"){
     const frames=FRAMES.filter(f=>POOLS[f.p].includes(v));
     if(!frames.length)return makeQuestion(lvl);
     const f=rnd(frames);
-    return {kind:"context",v,ck:f.c,frame:f,serbianOnly,tag:CASE_BY_KEY[f.c].sr,
+    return {kind:"context",v,ck:f.c,frame:f,serbianOnly,repeat,tag:CASE_BY_KEY[f.c].sr,
       word:f.s.replace("___",'<em class="blank">______</em>'), small:true,
       ask: serbianOnly? "Reč: "+v.word : "Put <b>"+v.word+"</b> into the blank.",
       gloss: serbianOnly? "" : v.en, typed:true};
@@ -293,11 +340,11 @@ function makeQuestion(lvl){
   if(kind==="form-mc"){
     const right=forms(v,ck)[0];
     const opts=shuffle([{text:right,ok:true},...formDistractors(v,ck,3).map(f=>({text:f,ok:false}))]);
-    return {kind,v,ck,serbianOnly,tag:cs.sr,word:v.word,
+    return {kind,v,ck,serbianOnly,repeat,tag:cs.sr,word:v.word,
       ask: serbianOnly? cs.sr+" od <b>"+v.word+"</b>?" : "Which one is the "+cs.en.toLowerCase()+"?",
       gloss: serbianOnly?"":v.en, options:opts.map(o=>({text:o.text,ok:o.ok,serif:true}))};
   }
-  return {kind:"form-type",v,ck,serbianOnly,tag:cs.sr,word:v.word,
+  return {kind:"form-type",v,ck,serbianOnly,repeat,tag:cs.sr,word:v.word,
     ask: serbianOnly? "Napiši "+cs.sr.toLowerCase()+"." : "What is the "+cs.en.toLowerCase()+" of “"+v.word+"”?",
     gloss: serbianOnly?"":v.en, typed:true};
 }
@@ -322,12 +369,14 @@ function nextQuestion(){
   locked=false;
   Q=makeQuestion(lvl);
   $("#pd-card").classList.remove("right");
-  $("#pd-tag").textContent=Q.tag;
+  $("#pd-tag").textContent=(Q.repeat?"↻ ":"")+Q.tag;
   $("#pd-word").innerHTML=Q.word;
   $("#pd-word").className="qword"+(Q.small?" sm":"");
   $("#pd-ask").innerHTML=Q.ask||"";
   $("#pd-gloss").textContent=Q.gloss||"";
-  $("#pd-feedback").innerHTML="";
+  $("#pd-feedback").innerHTML = reviewCleared
+    ? '<span class="ok">✓ Review cleared.</span><span class="why">Back to the full mix.</span>' : "";
+  reviewCleared=false;
   $("#pd-pattern").hidden=true;
   const say=$("#pd-say"); say.hidden=!(Q.kind==="vocab-sr-en"||Q.kind==="which-case"||Q.kind==="form-mc");
   if(Q.options){
@@ -623,6 +672,8 @@ function openStats(){
       '<div class="stat"><b>'+az+"%</b><span>Cyrillic</span></div></div>"+
     '<div class="eyebrow">Correct answers by case</div><div class="stats" style="grid-template-columns:repeat(4,1fr)">'+
       casesRow+"</div>"+
+    (P.due.length?'<button class="btn" id="drillMisses" style="margin-top:16px">↻ Drill my mistakes ('+
+      P.due.length+')</button>':"")+
     (hard.length?'<div class="eyebrow">Needs review</div><div class="wordlist">'+
       hard.map(h=>'<button class="werow" data-w="'+esc(h.w)+'"><span class="badge">'+
         CASE_BY_KEY[h.c].sr.slice(0,3)+'</span><span class="sr">'+esc(h.w)+
@@ -640,6 +691,14 @@ $("#stats").addEventListener("click",e=>{
   if(e.target.id==="stats"||e.target.closest("#statsClose")){$("#stats").classList.remove("on");return;}
   const w=e.target.closest(".werow");
   if(w){$("#stats").classList.remove("on");openWord(BY_WORD[w.dataset.w]);return;}
+  if(e.target.closest("#drillMisses")){
+    $("#stats").classList.remove("on");
+    reviewMode=true;
+    showTab("padez");
+    showView($("#tab-padez"),"play");
+    nextQuestion();
+    return;
+  }
   if(e.target.closest("#pd-reset")){
     if(!confirm("Erase case and vocabulary progress on this device? The Cyrillic side is kept."))return;
     P=blank(); save(); paintMeters(); openStats();
