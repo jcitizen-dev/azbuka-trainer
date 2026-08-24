@@ -545,7 +545,7 @@ $("#vq-say").addEventListener("click",()=>{if(VQ&&window.AZ)AZ.say(VQ.word)});
 
 /* ============================ WORD BROWSER ============================ */
 const FILTERS=[["all","All"],["noun","Nouns"],["verb","Verbs"],["adjective","Adjectives"],
-               ["phrase","Phrases"],["other","Other"],["flag","Flagged"]];
+               ["phrase","Phrases"],["other","Other"],["flag","Notes"]];
 let wbFilter="all";
 function paintFilters(){
   $("#wb-filters").innerHTML=FILTERS.map(([k,n])=>

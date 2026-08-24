@@ -1,5 +1,5 @@
 /* Azbuka Trainer service worker — app shell cached so the app opens with no network. */
-const VERSION = "azbuka-v4";
+const VERSION = "azbuka-v5";
 const SHELL = [
   "./", "./index.html", "./style.css", "./vocab.js", "./azbuka.js", "./game.js",
   "./manifest.webmanifest",

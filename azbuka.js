@@ -178,7 +178,7 @@ $("#d-opts").addEventListener("click",ev=>{
   }
   $$("#d-opts .opt").forEach(o=>o.disabled=true);
   updDrill();
-  setTimeout(newDrill, ok?620:1900);});
+  setTimeout(newDrill, ok?620:2900);});
 function updDrill(){
   $("#d-run").textContent=dRun;
   $("#d-acc").textContent=dN?Math.round(dOK/dN*100)+"%":"—";
