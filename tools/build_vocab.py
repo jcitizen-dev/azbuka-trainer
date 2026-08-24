@@ -200,7 +200,7 @@ F("čarapa", "sock", tags=("clothing",))
 ADJ("čist", "clean", supplied="čisto", note="čisto = neuter form, also used as the adverb 'cleanly'")
 M("dom", "home", tags=("place",))
 M("drug", "friend", anim=True, supplied="druga", tags=("person",),
-  flag="Supplied as 'druga', which is ambiguous: genitive of 'drug', the feminine noun 'druga', or the adjective 'drugi' (second/other). Stored as the dictionary form 'drug'.")
+  note="The supplied 'druga' is ambiguous — genitive of 'drug', the feminine noun 'druga' (female friend), or the adjective 'drugi' (second, other). This entry is the dictionary form 'drug'.")
 ADV("gotovo", "almost; done")
 M("jezik", "language; tongue", tags=("thing","abstract"))
 V("krenuti", "to set off, start moving", "perfective", supplied="krenula",
@@ -251,7 +251,7 @@ V("ručati", "to have lunch", supplied="ručate", note="ručate = 2nd person plu
 ADV("mnogo", "a lot")
 ADV("daleko", "far")
 ADJ("lak", "easy; light", f="laka", n="lako",
-    flag="Also a masculine noun meaning 'varnish, polish'. Stored as the adjective.")
+    note="Also a masculine noun meaning 'varnish, polish'. This entry is the adjective.")
 ADJ("težak", "hard; heavy", f="teška", n="teško", pl="teški")
 ADV("retko", "rarely")
 ADV("blizu", "near")
@@ -268,7 +268,7 @@ V("družiti se", "to hang out", "imperfective", supplied="družim", note="druži
 V("ustajati", "to get up", "imperfective", supplied="ustajem", note="ustajem = 1sg present")
 ADV("dugo", "for a long time")
 ADJ("dug", "long", f="duga", n="dugo", pl="dugi", supplied="duge",
-    flag="Also a masculine noun meaning 'debt'. Stored as the adjective.")
+    note="Also a masculine noun meaning 'debt'. This entry is the adjective.")
 V("igrati", "to play; to dance", "imperfective")
 M("saobraćaj", "traffic", tags=("abstract",))
 ADJ("širok", "wide", f="široka", n="široko", pl="široki", supplied="široki")
@@ -287,7 +287,7 @@ ADJ("poznat", "well-known", supplied="poznat")
 N("pozorište", "theater", kind="e", tags=("place",))
 ADJ("skup", "expensive", supplied="skupi")
 ADV("pravo", "straight ahead",
-    flag="Also a neuter noun meaning 'right; law'. Stored as the adverb.")
+    note="Also a neuter noun meaning 'right; law'. This entry is the adverb.")
 ADV("nazad", "back")
 ADJ("narodni", "folk, national", f="narodna", n="narodno", pl="narodni", supplied="narodno")
 PREP("ispred", "in front of", case="genitive")
@@ -308,7 +308,7 @@ F("žurka", "party", dat="žurki", tags=("abstract","place"))
 PREP("na", "on; to", case="accusative or locative")
 
 F("promena", "change", supplied="promema", tags=("abstract",),
-  flag="Supplied as 'promema' — almost certainly a typo for 'promena' (change). Stored under the corrected spelling.")
+  note="Corrected from the supplied 'promema', a typo for 'promena'.")
 V("praviti", "to make", "imperfective")
 ADV("ponekad", "sometimes")
 ADV("uvek", "always")
@@ -316,7 +316,7 @@ N("ostrvo", "island", tags=("place",))
 V("stići", "to arrive", "perfective", supplied="stignem", note="stignem = 1sg present")
 N("druženje", "hanging out, socializing", kind="e", tags=("abstract",))
 V("zaposliti", "to hire, to employ", "perfective", supplied="zaposlem",
-  flag="Supplied as 'zaposlem'; the standard 1sg present is 'zaposlim'.")
+  note="zaposlim = 1sg present; the supplied 'zaposlem' is nonstandard.")
 ADV("kasnije", "later")
 ADV("možda", "maybe")
 ADV("naravno", "of course")
@@ -347,7 +347,7 @@ M("pisac", "writer", anim=True, en_stem="pisc", voc="pišče", tags=("person",),
   note="Irregular stem change: pisac → pisc-; vocative palatalizes to pišče.")
 FI("stvar", "thing", ins=["stvarju","stvari"], supplied="stvari", plural="stvari", tags=("thing",))
 PHRASE("u pravu", "right, correct (as in 'you are right')", supplied="upravu",
-       flag="Supplied as one word 'upravu'; written as two words 'u pravu' (biti u pravu = to be right).")
+       note="Two words, not 'upravu': biti u pravu = to be right.")
 N("zanimanje", "occupation, profession", kind="e", tags=("abstract",))
 F("plata", "salary", tags=("abstract",))
 M("ples", "dance", tags=("abstract",))
@@ -356,7 +356,7 @@ N("jezero", "lake", tags=("place",))
 PHRASE("na sreću", "fortunately")
 PHRASE("zar ne", "right?, isn't it?")
 PHRASE("je l' da", "right?, isn't that so?", supplied="jel da",
-       flag="Supplied as 'jel da' — colloquial spelling of 'je l' da'.")
+       note="'jel da' is the colloquial spelling of 'je l' da' (from 'je li da').")
 CONJ("jer", "because")
 ADV("već", "already")
 ADV("nekada", "once, in the past")
@@ -374,8 +374,8 @@ ADV("opušteno", "in a relaxed way")
 W("neka", "let it be; okay", "particle")
 PREP("o", "about", case="locative")
 M("mir", "peace; calm", tags=("abstract",))
-UNCLEAR("nature", "nature",
-        "English word in the source list. The Serbian equivalent is 'priroda', but no Serbian word was supplied, so nothing is practiced here.")
+F("priroda", "nature", supplied="nature", tags=("place","abstract"),
+  note="The source list had the English 'nature'; stored as the Serbian 'priroda'.")
 ADJ("bolji", "better", f="bolja", n="bolje", pl="bolji", note="Comparative of 'dobar'.")
 ADV("veoma", "very")
 PRON("svako", "everyone")
@@ -389,15 +389,15 @@ ADJ("vozački", "driver's (as in driver's license)", f="vozačka", n="vozačko",
     pl="vozački", supplied="vozačka", note="Collocation: vozačka dozvola = driver's license.")
 F("dozvola", "permit, license", tags=("thing",))
 M("radnik", "worker", anim=True, tags=("person",))
-UNCLEAR("zavici", "unclear",
-        "Not a standard Serbian word as supplied. Possibly 'zavičaj' (homeland) or 'zanati' (trades). Left unpracticed rather than guessed.")
+V("zavisiti", "to depend", "imperfective", supplied="zavici",
+  note="zavisi = 3sg present, 'it depends'. Read as a typo for 'zavisi' in the source list.")
 V("tražiti", "to look for", "imperfective", supplied="traži", note="traži = 3sg present")
 PREP("kroz", "through", case="accusative")
 M("odmor", "rest; vacation", tags=("abstract",))
 M("lek", "medicine", voc="leče", tags=("thing",))
 F("glavobolja", "headache", tags=("abstract",))
 M("bol", "pain", tags=("abstract",),
-  flag="Usually masculine ('bol' → 'bola'). In the sense of emotional pain it can be feminine (bol → boli). Stored as masculine.")
+  note="Masculine in general use (bol → bola). In the sense of emotional pain it is also found as feminine (bol → boli).")
 FI("bolest", "illness", ins=["bolešću","bolesti"], tags=("abstract",))
 M("ranac", "backpack", en_stem="ranc", tags=("thing",), note="Fleeting a: ranac → ranc-.")
 FI("ljubav", "love", ins=["ljubavlju","ljubavi"], supplied="ljubavi", tags=("abstract",))
@@ -411,7 +411,7 @@ V("posetiti", "to visit", "perfective")
 ADJ("preporučen", "recommended", f="preporučena", n="preporučeno", pl="preporučeni",
     supplied="preporučena")
 F("razglednica", "postcard", supplied="razglendince", plural="razglednice", tags=("thing",),
-  flag="Supplied as 'razglendince' — a typo for 'razglednice' (postcards). Stored under the singular 'razglednica'.")
+  note="Corrected from the supplied 'razglendince', a typo for 'razglednice' (postcards). Stored under the singular.")
 ADJ("najbolji", "best", f="najbolja", n="najbolje", pl="najbolji", note="Superlative of 'dobar'.")
 F("nagrada", "prize, award", tags=("thing","abstract"))
 F("ponuda", "offer", tags=("abstract",))
@@ -425,7 +425,7 @@ ADJ("svečan", "formal, festive", supplied="svečano")
 F("trenerka", "tracksuit", dat="trenerki", tags=("clothing",))
 ADJ("donji", "lower", f="donja", n="donje", pl="donji", supplied="donja")
 ADJ("gornji", "upper", f="gornja", n="gornje", pl="gornji", supplied="gonja",
-    flag="Supplied as 'gonja' — not a Serbian word; read as a typo for 'gornja' (upper), the counterpart of the preceding 'donja'.")
+    note="Corrected from the supplied 'gonja', read as 'gornja' (upper) — the counterpart of 'donja'.")
 F("čizma", "boot", supplied="čizme", plural="čizme", tags=("clothing",))
 F("cipela", "shoe", supplied="cipele", plural="cipele", tags=("clothing",))
 F("štikla", "high heel", dat="štikli", supplied="štikle", plural="štikle", tags=("clothing",))
@@ -461,7 +461,7 @@ M("vatrogasac", "firefighter", anim=True, en_stem="vatrogasc", voc="vatrogasče"
 ADJ("neobičan", "unusual", f="neobična", n="neobično", pl="neobični")
 M("zapad", "west", tags=("place",))
 V("naći", "to find", "perfective", supplied="nači",
-  flag="Also supplied as 'nači' — a typo for 'naći'.")
+  note="The supplied 'nači' is a typo for 'naći'.")
 M("hram", "temple", tags=("place",))
 FI("prošlost", "the past", ins=["prošlošću","prošlosti"], tags=("abstract",))
 FI("sadašnjost", "the present", ins=["sadašnjošću","sadašnjosti"], tags=("abstract",))
@@ -482,8 +482,8 @@ ADJ("jeftin", "cheap")
 ADJ("prijatan", "pleasant", f="prijatna", n="prijatno", pl="prijatni")
 V("rezervisati", "to reserve, to book")
 ADV("juče", "yesterday")
-UNCLEAR("again", "again",
-        "English word in the source list. Serbian would be 'opet' or 'ponovo', but no Serbian word was supplied, so nothing is practiced here.")
+ADV("opet", "again", supplied="again",
+    note="The source list had the English 'again'; stored as the Serbian 'opet' ('ponovo' is an equally common synonym).")
 M("sastanak", "meeting", en_stem="sastank", voc="sastanče", tags=("abstract",),
   note="Fleeting a: sastanak → sastank-.")
 ADJ("prošli", "last, previous", f="prošla", n="prošlo", pl="prošli", supplied="prošle")
@@ -492,7 +492,7 @@ M("sajam", "fair, expo", en_stem="sajm", voc="sajme", tags=("place","abstract"),
 ADJ("siv", "gray", supplied="sivo")
 ADJ("kožni", "leather", f="kožna", n="kožno", pl="kožni", supplied="kožna")
 F("strava", "horror; (slang) awesome", tags=("abstract",),
-  flag="In speech 'strava' is slang for 'awesome'; the literal noun means 'horror, dread'.")
+  note="Literally 'horror, dread'; in speech 'strava' is slang for 'awesome'.")
 M("svet", "world", tags=("place","abstract"))
 N("inostranstvo", "abroad, foreign countries", tags=("place",))
 ADJ("staklen", "glass (made of glass)", f="staklena", n="stakleno", pl="stakleni",
@@ -551,7 +551,7 @@ F("slika", "picture, painting", dat="slici", supplied="slike", plural="slike", t
 M("tepih", "rug, carpet", tags=("thing",))
 F("polica", "shelf", supplied="police", plural="police", tags=("thing",))
 F("kada", "bathtub", tags=("thing",),
-  flag="Also the adverb/conjunction 'kada' (when). Stored as the noun 'bathtub'.")
+  note="Also the adverb/conjunction 'kada' (when). This entry is the noun 'bathtub'.")
 F("komoda", "dresser", tags=("thing",))
 M("luster", "chandelier", tags=("thing",))
 ADJ("stran", "foreign")
@@ -612,8 +612,8 @@ def emit(path="vocab.js"):
  * {", ".join(f"{k}: {v}" for k, v in sorted(counts.items()))}
  *
  * Noun fields: word, gender, animacy, number, cases (all seven, singular unless
- * number is "plural"), plural (nominative plural where supplied), tags, note,
- * flag. A case value may be an array when Serbian allows more than one form —
+ * number is "plural"), plural (nominative plural where supplied), tags, note.
+ * A case value may be an array when Serbian allows more than one form —
  * the app accepts any of them and shows the first as the primary answer.
  */
 const VOCAB = [
